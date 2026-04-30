@@ -1,0 +1,44 @@
+# Spring Boot 4.0.6 기준
+
+[versions]
+junit = "6.0.3"
+lombok = "1.18.46"
+querydsl = "5.1.0"
+querydsl-jpa = 'jpa'
+spring-boot = "4.0.6"
+spring-dependency = "1.1.7"
+
+[libraries]
+# Core Spring Dependencies
+spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test", version.ref = "spring-boot" }
+spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "spring-boot" }
+spring-boot-validation = { group = "org.springframework.boot", name = "spring-boot-starter-validation", version.ref = "spring-boot" }
+
+# Database & JPA
+h2 = { group = "com.h2database", name = "h2" }
+querydsl-apt = { group = "io.github.openfeign.querydsl", name = "querydsl-apt", version.ref = "querydsl" }
+querydsl-jpa = { group = "io.github.openfeign.querydsl", name = "querydsl-jpa", version.ref = "querydsl" }
+spring-boot-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa", version.ref = "spring-boot" }
+
+# Documentation & API
+springdoc = "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8"
+
+# Security & OAuth
+jjwt-api = "io.jsonwebtoken:jjwt-api:0.12.3"
+jjwt-impl = "io.jsonwebtoken:jjwt-impl:0.12.3"
+jjwt-jackson = "io.jsonwebtoken:jjwt-jackson:0.12.3"
+spring-security-core = { group = "org.springframework.security", name = "spring-security-core", version = "7.0.5" }
+
+
+# Testing
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version = "5.20.0" }
+
+# Utilities & Tools
+lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spotless = { id = "com.diffplug.spotless", version = "7.0.2" }
+spring-dependency = { id = "io.spring.dependency-management", version.ref = "spring-dependency" }
