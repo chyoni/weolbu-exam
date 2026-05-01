@@ -47,6 +47,14 @@ allprojects {
         implementation(libs.findLibrary("spring-boot-validation").orElseThrow())
         implementation(libs.findLibrary("spring-security-core").orElseThrow())
 
+        // Querydsl
+        implementation(libs.findLibrary("querydsl-jpa").orElseThrow())
+        annotationProcessor(variantOf(libs.findLibrary("querydsl-apt").orElseThrow()) {
+            classifier(libs.findVersion("querydsl-jpa").orElseThrow().requiredVersion)
+        })
+        annotationProcessor(libs.findLibrary("jakarta-annotation").orElseThrow())
+        annotationProcessor(libs.findLibrary("jakarta-persistence").orElseThrow())
+
         // DB
         runtimeOnly(libs.findLibrary("h2").orElseThrow())
 

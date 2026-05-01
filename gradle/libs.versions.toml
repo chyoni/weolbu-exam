@@ -3,8 +3,8 @@
 [versions]
 junit = "6.0.3"
 lombok = "1.18.46"
-querydsl = "5.1.0"
-querydsl-jpa = 'jpa'
+querydsl = "6.10.1"
+querydsl-jpa = 'jakarta'
 spring-boot = "4.0.6"
 spring-dependency = "1.1.7"
 
@@ -16,12 +16,14 @@ spring-boot-validation = { group = "org.springframework.boot", name = "spring-bo
 
 # Database & JPA
 h2 = { group = "com.h2database", name = "h2" }
+jakarta-annotation = { group = "jakarta.annotation", name = "jakarta.annotation-api" }
+jakarta-persistence = { group = "jakarta.persistence", name = "jakarta.persistence-api" }
 querydsl-apt = { group = "io.github.openfeign.querydsl", name = "querydsl-apt", version.ref = "querydsl" }
 querydsl-jpa = { group = "io.github.openfeign.querydsl", name = "querydsl-jpa", version.ref = "querydsl" }
 spring-boot-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa", version.ref = "spring-boot" }
 
 # Documentation & API
-springdoc = "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8"
+springdoc = "org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3"
 
 # Security & OAuth
 jjwt-api = "io.jsonwebtoken:jjwt-api:0.12.3"
