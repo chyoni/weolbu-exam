@@ -1,11 +1,5 @@
 package cwchoiit.weolbuexam.adapter.in.web;
 
-import static cwchoiit.weolbuexam.domain.member.MemberRole.STUDENT;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
-
 import cwchoiit.weolbuexam.application.required.MemberRepository;
 import cwchoiit.weolbuexam.domain.member.Member;
 import cwchoiit.weolbuexam.domain.member.PasswordEncoder;
@@ -18,6 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+
+import static cwchoiit.weolbuexam.domain.member.MemberRole.STUDENT;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @Transactional
 @SpringBootTest

@@ -1,9 +1,6 @@
 package cwchoiit.weolbuexam.domain.member;
 
-import static java.util.Objects.requireNonNull;
-import static org.springframework.util.Assert.isTrue;
-import static org.springframework.util.Assert.state;
-
+import cwchoiit.weolbuexam.domain.BaseEntity;
 import cwchoiit.weolbuexam.domain.member.payload.MemberRegisterPayload;
 import cwchoiit.weolbuexam.domain.member.vo.Email;
 import cwchoiit.weolbuexam.domain.member.vo.PhoneNumber;
@@ -13,11 +10,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
+import static org.springframework.util.Assert.isTrue;
+import static org.springframework.util.Assert.state;
+
 @Entity
 @Getter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -62,6 +65,10 @@ public class Member {
         return passwordEncoder.matches(rawPassword, this.encodedPassword);
     }
 
+    public boolean isInstructor() {
+        return this.role == MemberRole.INSTRUCTOR;
+    }
+
     public void changeRole(MemberRole newRole) {
         isTrue(this.role != newRole, "이미 변경하고자 하는 회원 유형입니다: " + newRole);
 
@@ -80,5 +87,17 @@ public class Member {
                 rawPassword.matches(
                         "^(?:(?=.*[a-z])(?=.*[A-Z])|(?=.*[a-z])(?=.*\\d)|(?=.*[A-Z])(?=.*\\d)).*$"),
                 "패스워드는 영문 소문자, 대문자, 숫자 중 최소 두 가지 이상 조합이 필요합니다");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(id, member.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

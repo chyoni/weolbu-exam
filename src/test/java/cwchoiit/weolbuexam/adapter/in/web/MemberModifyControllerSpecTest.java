@@ -1,12 +1,5 @@
 package cwchoiit.weolbuexam.adapter.in.web;
 
-import static cwchoiit.weolbuexam.domain.member.MemberRole.STUDENT;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cwchoiit.weolbuexam.adapter.in.web.request.MemberRegisterRequest;
 import cwchoiit.weolbuexam.adapter.in.web.request.MemberUpdatePasswordRequest;
@@ -23,6 +16,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+
+import static cwchoiit.weolbuexam.domain.member.MemberRole.STUDENT;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @Transactional
 @SpringBootTest

@@ -1,9 +1,9 @@
 package cwchoiit.weolbuexam.domain.member;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import cwchoiit.weolbuexam.adapter.out.security.SecurePasswordEncoder;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PasswordEncoderTest {
 
