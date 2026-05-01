@@ -1,6 +1,7 @@
 package cwchoiit.weolbuexam.application.provided;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import cwchoiit.weolbuexam.adapter.out.security.SecurePasswordEncoder;
 import cwchoiit.weolbuexam.application.required.CourseRepository;
@@ -12,6 +13,7 @@ import cwchoiit.weolbuexam.domain.member.MemberRole;
 import cwchoiit.weolbuexam.domain.member.PasswordEncoder;
 import cwchoiit.weolbuexam.domain.member.payload.MemberRegisterPayload;
 import jakarta.persistence.EntityManager;
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +59,28 @@ class CourseOpenUseCaseTest {
         entityManager.clear();
 
         assertThat(courseRepository.findById(course.getId()).isPresent()).isTrue();
+    }
+
+    @Test
+    void openFail() {
+        CourseOpenPayload coursePayload = new CourseOpenPayload("a", 10, 200000L);
+
+        assertThatThrownBy(() -> courseOpenUseCase.open(coursePayload, member.getId()))
+                .isInstanceOf(ConstraintViolationException.class);
+
+        CourseOpenPayload coursePayload2 = new CourseOpenPayload("a".repeat(201), 10, 200000L);
+
+        assertThatThrownBy(() -> courseOpenUseCase.open(coursePayload2, member.getId()))
+                .isInstanceOf(ConstraintViolationException.class);
+
+        CourseOpenPayload coursePayload3 = new CourseOpenPayload("너나위의 내집마련 기초반", null, 200000L);
+
+        assertThatThrownBy(() -> courseOpenUseCase.open(coursePayload3, member.getId()))
+                .isInstanceOf(ConstraintViolationException.class);
+
+        CourseOpenPayload coursePayload4 = new CourseOpenPayload("너나위의 내집마련 기초반", 10, null);
+
+        assertThatThrownBy(() -> courseOpenUseCase.open(coursePayload4, member.getId()))
+                .isInstanceOf(ConstraintViolationException.class);
     }
 }
