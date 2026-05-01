@@ -1,21 +1,36 @@
 package cwchoiit.weolbuexam.domain.member;
 
+import cwchoiit.weolbuexam.domain.member.payload.MemberRegisterPayload;
+import cwchoiit.weolbuexam.domain.member.vo.Email;
+import cwchoiit.weolbuexam.domain.member.vo.PhoneNumber;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import static java.util.Objects.requireNonNull;
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.state;
 
-import cwchoiit.weolbuexam.domain.member.payload.MemberRegisterPayload;
-import cwchoiit.weolbuexam.domain.member.vo.Email;
-import lombok.Getter;
-import lombok.ToString;
-
+@Entity
 @Getter
 @ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String name;
-    private Email email;
-    private String phoneNumber;
+
+    @Embedded private Email email;
+
+    @Embedded private PhoneNumber phoneNumber;
+
     private String encodedPassword;
+
+    @Enumerated(EnumType.STRING)
     private MemberRole role;
 
     public static Member register(
@@ -24,7 +39,7 @@ public class Member {
 
         member.name = requireNonNull(registerPayload.name());
         member.email = new Email(requireNonNull(registerPayload.email()));
-        member.phoneNumber = requireNonNull(registerPayload.phoneNumber());
+        member.phoneNumber = new PhoneNumber(requireNonNull(registerPayload.phoneNumber()));
 
         checkPassword(requireNonNull(registerPayload.rawPassword()));
 
@@ -34,10 +49,17 @@ public class Member {
         return member;
     }
 
-    public void changePassword(String newPassword, PasswordEncoder passwordEncoder) {
-        checkPassword(newPassword);
+    public void changePassword(
+            String prevPassword, String newPassword, PasswordEncoder passwordEncoder) {
+        state(verifyPassword(prevPassword, passwordEncoder), "기존 비밀번호가 일치하지 않습니다");
+
+        checkPassword(requireNonNull(newPassword));
 
         this.encodedPassword = passwordEncoder.encode(newPassword);
+    }
+
+    public boolean verifyPassword(String rawPassword, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(rawPassword, this.encodedPassword);
     }
 
     public void changeRole(MemberRole newRole) {
@@ -47,7 +69,7 @@ public class Member {
     }
 
     public void changePhoneNumber(String newPhoneNumber) {
-        this.phoneNumber = newPhoneNumber;
+        this.phoneNumber = new PhoneNumber(requireNonNull(newPhoneNumber));
     }
 
     private static void checkPassword(String rawPassword) {

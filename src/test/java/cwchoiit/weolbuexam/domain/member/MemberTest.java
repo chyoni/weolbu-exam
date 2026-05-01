@@ -1,12 +1,12 @@
 package cwchoiit.weolbuexam.domain.member;
 
+import cwchoiit.weolbuexam.domain.member.payload.MemberRegisterPayload;
+import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-
-import cwchoiit.weolbuexam.domain.member.payload.MemberRegisterPayload;
-import org.junit.jupiter.api.Test;
 
 class MemberTest {
 
@@ -22,7 +22,7 @@ class MemberTest {
 
         assertThat(member.getName()).isEqualTo(registerPayload.name());
         assertThat(member.getEmail().address()).isEqualTo(registerPayload.email());
-        assertThat(member.getPhoneNumber()).isEqualTo(registerPayload.phoneNumber());
+        assertThat(member.getPhoneNumber().value()).isEqualTo(registerPayload.phoneNumber());
         assertThat(member.getRole()).isEqualTo(registerPayload.role());
 
         verify(passwordEncoder, times(1)).encode(eq(registerPayload.rawPassword()));
@@ -83,17 +83,35 @@ class MemberTest {
                 new MemberRegisterPayload(
                         "최치원", "noreply@example.com", "01011112222", "Secret", MemberRole.STUDENT);
 
+        when(passwordEncoder.encode(eq("Secret"))).thenReturn("prevEncodedPassword");
+
         Member member = Member.register(registerPayload, passwordEncoder);
 
         assertThat(member.getName()).isEqualTo(registerPayload.name());
 
-        when(passwordEncoder.encode(eq("new12345"))).thenReturn("encodedPassword");
+        when(passwordEncoder.encode(eq("new12345"))).thenReturn("newEncodedPassword");
 
-        member.changePassword("new12345", passwordEncoder);
+        when(passwordEncoder.matches(eq("Secret"), any())).thenReturn(true);
+
+        member.changePassword("Secret", "new12345", passwordEncoder);
 
         verify(passwordEncoder, times(1)).encode(eq("new12345"));
 
-        assertThat(member.getEncodedPassword()).isEqualTo("encodedPassword");
+        assertThat(member.getEncodedPassword()).isEqualTo("newEncodedPassword");
+    }
+
+    @Test
+    void verifyPassword() {
+        MemberRegisterPayload registerPayload =
+                new MemberRegisterPayload(
+                        "최치원", "noreply@example.com", "01011112222", "Secret", MemberRole.STUDENT);
+
+        Member member = Member.register(registerPayload, passwordEncoder);
+
+        when(passwordEncoder.encode(eq("Secret"))).thenReturn("encodedSecret");
+        when(passwordEncoder.matches(eq("Secret"), any())).thenReturn(true);
+
+        assertThat(member.verifyPassword("Secret", passwordEncoder)).isTrue();
     }
 
     @Test
@@ -103,6 +121,17 @@ class MemberTest {
                         "최치원", "noreply@example.com", "01011112222", "Sec", MemberRole.STUDENT);
 
         assertThatThrownBy(() -> Member.register(registerPayload, passwordEncoder))
+                .isInstanceOf(IllegalStateException.class);
+
+        MemberRegisterPayload registerPayload2 =
+                new MemberRegisterPayload(
+                        "최치원",
+                        "noreply@example.com",
+                        "01011112222",
+                        "Secret123000444",
+                        MemberRole.STUDENT);
+
+        assertThatThrownBy(() -> Member.register(registerPayload2, passwordEncoder))
                 .isInstanceOf(IllegalStateException.class);
     }
 
@@ -184,6 +213,23 @@ class MemberTest {
         String newPhoneNumber = "01022223333";
         member.changePhoneNumber(newPhoneNumber);
 
-        assertThat(member.getPhoneNumber()).isEqualTo(newPhoneNumber);
+        assertThat(member.getPhoneNumber().value()).isEqualTo(newPhoneNumber);
+    }
+
+    @Test
+    void changePhoneNumberFail() {
+        MemberRegisterPayload registerPayload =
+                new MemberRegisterPayload(
+                        "최치원",
+                        "noreply@example.com",
+                        "01011112222",
+                        "Secret123",
+                        MemberRole.STUDENT);
+
+        Member member = Member.register(registerPayload, passwordEncoder);
+
+        String newPhoneNumber = "1234";
+        assertThatThrownBy(() -> member.changePhoneNumber(newPhoneNumber))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
