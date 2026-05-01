@@ -1,3 +1,29 @@
 spring:
   application:
     name: weolbu-exam
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    url: jdbc:h2:mem:weolbu;MODE=MySQL;DB_CLOSE_DELAY=-1 # MySQL 호환, 인메모리 디비의 기본 동작인 마지막 커넥션이 닫히면 DB도 사라지는 문제를 막고 JVM이 살아있는 동안 DB를 유지하는 옵션
+    hikari:
+      driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always

@@ -14,4 +14,5 @@
 | 이메일            | Email           | 이메일                                                                      |      |
 | 휴대폰 번호         | PhoneNumber     | 휴대폰 번호                                                                   |      |
 | 회원 유형          | MemberRole      | 회원 유형을 나타낸다. 예) INSTRUCTOR, STUDENT                                      | role |                                     
-| 회원 가입          | Register        | 회원 가입을 표현하는 단어                                                           |      | 
+| 회원 가입          | Register        | 회원 가입을 표현하는 단어                                                           |      |
+| 변경             | Change          | 값을 변경할때 붙이는 Prefix. 예) changePassword, changeRole, ...                   |      |

@@ -42,15 +42,20 @@ allprojects {
 
     // Global Dependency
     dependencies {
-        "mockitoAgent"(libs.findLibrary("mockito-core").orElseThrow()) { isTransitive = false }
-
         implementation(libs.findLibrary("spring-boot-starter-web").orElseThrow())
-
         implementation(libs.findLibrary("spring-boot-data-jpa").orElseThrow())
+        implementation(libs.findLibrary("spring-boot-validation").orElseThrow())
+        implementation(libs.findLibrary("spring-security-core").orElseThrow())
 
+        // DB
+        runtimeOnly(libs.findLibrary("h2").orElseThrow())
+
+        // Utils
         compileOnly(libs.findLibrary("lombok").orElseThrow())
         annotationProcessor(libs.findLibrary("lombok").orElseThrow())
 
+        // Testing
+        "mockitoAgent"(libs.findLibrary("mockito-core").orElseThrow()) { isTransitive = false }
         testImplementation(libs.findLibrary("junit-jupiter").orElseThrow())
         testImplementation(libs.findLibrary("spring-boot-starter-test").orElseThrow())
         testImplementation(libs.findLibrary("lombok").orElseThrow())
