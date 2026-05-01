@@ -51,6 +51,7 @@ allprojects {
         runtimeOnly(libs.findLibrary("h2").orElseThrow())
 
         // Utils
+        implementation(libs.findLibrary("springdoc").orElseThrow())
         compileOnly(libs.findLibrary("lombok").orElseThrow())
         annotationProcessor(libs.findLibrary("lombok").orElseThrow())
 

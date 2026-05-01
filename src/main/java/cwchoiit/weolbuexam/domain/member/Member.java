@@ -1,5 +1,9 @@
 package cwchoiit.weolbuexam.domain.member;
 
+import static java.util.Objects.requireNonNull;
+import static org.springframework.util.Assert.isTrue;
+import static org.springframework.util.Assert.state;
+
 import cwchoiit.weolbuexam.domain.member.payload.MemberRegisterPayload;
 import cwchoiit.weolbuexam.domain.member.vo.Email;
 import cwchoiit.weolbuexam.domain.member.vo.PhoneNumber;
@@ -8,10 +12,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import static java.util.Objects.requireNonNull;
-import static org.springframework.util.Assert.isTrue;
-import static org.springframework.util.Assert.state;
 
 @Entity
 @Getter

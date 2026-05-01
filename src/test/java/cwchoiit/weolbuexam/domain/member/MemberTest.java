@@ -1,12 +1,12 @@
 package cwchoiit.weolbuexam.domain.member;
 
-import cwchoiit.weolbuexam.domain.member.payload.MemberRegisterPayload;
-import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
+
+import cwchoiit.weolbuexam.domain.member.payload.MemberRegisterPayload;
+import org.junit.jupiter.api.Test;
 
 class MemberTest {
 
