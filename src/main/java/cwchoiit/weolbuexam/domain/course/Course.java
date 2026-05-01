@@ -1,16 +1,17 @@
 package cwchoiit.weolbuexam.domain.course;
 
+import static java.util.Objects.requireNonNull;
+import static org.springframework.util.Assert.state;
+
 import cwchoiit.weolbuexam.domain.BaseEntity;
 import cwchoiit.weolbuexam.domain.course.payload.CourseOpenPayload;
 import cwchoiit.weolbuexam.domain.member.Member;
 import jakarta.persistence.*;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import static java.util.Objects.requireNonNull;
-import static org.springframework.util.Assert.state;
 
 @Entity
 @Getter
@@ -25,7 +26,7 @@ public class Course extends BaseEntity {
 
     private Integer capacity;
 
-    private Integer price;
+    private Long price;
 
     private int enrollCount;
 
@@ -50,6 +51,19 @@ public class Course extends BaseEntity {
         state(capacity > enrollCount, "최대 수강 인원을 초과했습니다");
 
         this.enrollCount++;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return id != null && id.equals(course.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 
     private static void checkInstructorRole(Member instructor) {

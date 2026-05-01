@@ -1,0 +1,9 @@
+package cwchoiit.weolbuexam.application.provided;
+
+import cwchoiit.weolbuexam.domain.course.Course;
+import cwchoiit.weolbuexam.domain.course.payload.CourseOpenPayload;
+import jakarta.validation.Valid;
+
+public interface CourseOpenUseCase {
+    Course open(@Valid CourseOpenPayload openPayload, Long instructorId);
+}

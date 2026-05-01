@@ -1,20 +1,19 @@
 package cwchoiit.weolbuexam.domain.member;
 
+import static java.util.Objects.requireNonNull;
+import static org.springframework.util.Assert.isTrue;
+import static org.springframework.util.Assert.state;
+
 import cwchoiit.weolbuexam.domain.BaseEntity;
 import cwchoiit.weolbuexam.domain.member.payload.MemberRegisterPayload;
 import cwchoiit.weolbuexam.domain.member.vo.Email;
 import cwchoiit.weolbuexam.domain.member.vo.PhoneNumber;
 import jakarta.persistence.*;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
-import static org.springframework.util.Assert.isTrue;
-import static org.springframework.util.Assert.state;
 
 @Entity
 @Getter
@@ -91,9 +90,10 @@ public class Member extends BaseEntity {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(id, member.id);
+        return id != null && id.equals(member.id);
     }
 
     @Override

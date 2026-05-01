@@ -1,12 +1,13 @@
 package cwchoiit.weolbuexam.domain.member;
 
-import cwchoiit.weolbuexam.domain.member.payload.MemberRegisterPayload;
-import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
+
+import cwchoiit.weolbuexam.domain.member.payload.MemberRegisterPayload;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 class MemberTest {
 
@@ -246,5 +247,129 @@ class MemberTest {
         String newPhoneNumber = "1234";
         assertThatThrownBy(() -> member.changePhoneNumber(newPhoneNumber))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void equalsSameInstance() {
+        Member member =
+                Member.register(
+                        new MemberRegisterPayload(
+                                "최치원",
+                                "a@example.com",
+                                "01011112222",
+                                "Secret1",
+                                MemberRole.STUDENT),
+                        passwordEncoder);
+
+        assertThat(member).isEqualTo(member);
+    }
+
+    @Test
+    void equalsNull() {
+        Member member =
+                Member.register(
+                        new MemberRegisterPayload(
+                                "최치원",
+                                "a@example.com",
+                                "01011112222",
+                                "Secret1",
+                                MemberRole.STUDENT),
+                        passwordEncoder);
+
+        assertThat(member).isNotEqualTo(null);
+    }
+
+    @Test
+    void equalsDifferentType() {
+        Member member =
+                Member.register(
+                        new MemberRegisterPayload(
+                                "최치원",
+                                "a@example.com",
+                                "01011112222",
+                                "Secret1",
+                                MemberRole.STUDENT),
+                        passwordEncoder);
+
+        assertThat(member.equals("string")).isFalse();
+    }
+
+    @Test
+    void equalsBothUnpersisted() {
+        Member a =
+                Member.register(
+                        new MemberRegisterPayload(
+                                "최치원",
+                                "a@example.com",
+                                "01011112222",
+                                "Secret1",
+                                MemberRole.STUDENT),
+                        passwordEncoder);
+        Member b =
+                Member.register(
+                        new MemberRegisterPayload(
+                                "김철수",
+                                "b@example.com",
+                                "01011113333",
+                                "Secret1",
+                                MemberRole.STUDENT),
+                        passwordEncoder);
+
+        assertThat(a).isNotEqualTo(b);
+    }
+
+    @Test
+    void equalsSameId() {
+        Member a =
+                Member.register(
+                        new MemberRegisterPayload(
+                                "최치원",
+                                "a@example.com",
+                                "01011112222",
+                                "Secret1",
+                                MemberRole.STUDENT),
+                        passwordEncoder);
+        Member b =
+                Member.register(
+                        new MemberRegisterPayload(
+                                "김철수",
+                                "b@example.com",
+                                "01011113333",
+                                "Secret1",
+                                MemberRole.STUDENT),
+                        passwordEncoder);
+
+        ReflectionTestUtils.setField(a, "id", 1L);
+        ReflectionTestUtils.setField(b, "id", 1L);
+
+        assertThat(a).isEqualTo(b);
+        assertThat(a.hashCode()).isEqualTo(b.hashCode());
+    }
+
+    @Test
+    void equalsDifferentId() {
+        Member a =
+                Member.register(
+                        new MemberRegisterPayload(
+                                "최치원",
+                                "a@example.com",
+                                "01011112222",
+                                "Secret1",
+                                MemberRole.STUDENT),
+                        passwordEncoder);
+        Member b =
+                Member.register(
+                        new MemberRegisterPayload(
+                                "김철수",
+                                "b@example.com",
+                                "01011113333",
+                                "Secret1",
+                                MemberRole.STUDENT),
+                        passwordEncoder);
+
+        ReflectionTestUtils.setField(a, "id", 1L);
+        ReflectionTestUtils.setField(b, "id", 2L);
+
+        assertThat(a).isNotEqualTo(b);
     }
 }

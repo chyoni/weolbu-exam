@@ -19,7 +19,7 @@ create table if not exists course
     id            bigint       not null primary key auto_increment comment '강의 ID (대리키)',
     title         varchar(200) not null comment '강의명',
     capacity      int          not null comment '최대 수강 인원',
-    price         decimal      not null comment '가격',
+    price         bigint      not null comment '가격',
     instructor_id bigint       not null comment '강사 ID',
     enroll_count  int          not null default 0 comment '신청자 수 (역정규화)',
 
