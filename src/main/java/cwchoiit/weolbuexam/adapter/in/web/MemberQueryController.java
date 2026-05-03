@@ -2,6 +2,7 @@ package cwchoiit.weolbuexam.adapter.in.web;
 
 import cwchoiit.weolbuexam.adapter.in.web.common.ApiResponse;
 import cwchoiit.weolbuexam.adapter.in.web.response.MemberLoadResponse;
+import cwchoiit.weolbuexam.adapter.in.web.specification.MemberQueryControllerSpec;
 import cwchoiit.weolbuexam.application.provided.MemberLoadUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

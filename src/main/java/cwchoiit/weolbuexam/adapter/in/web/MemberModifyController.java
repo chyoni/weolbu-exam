@@ -4,6 +4,7 @@ import cwchoiit.weolbuexam.adapter.in.web.common.ApiResponse;
 import cwchoiit.weolbuexam.adapter.in.web.request.MemberRegisterRequest;
 import cwchoiit.weolbuexam.adapter.in.web.request.MemberUpdatePasswordRequest;
 import cwchoiit.weolbuexam.adapter.in.web.response.MemberRegisterResponse;
+import cwchoiit.weolbuexam.adapter.in.web.specification.MemberModifyControllerSpec;
 import cwchoiit.weolbuexam.application.provided.MemberRegisterUseCase;
 import cwchoiit.weolbuexam.application.provided.MemberUpdateUseCase;
 import cwchoiit.weolbuexam.domain.member.MemberRole;

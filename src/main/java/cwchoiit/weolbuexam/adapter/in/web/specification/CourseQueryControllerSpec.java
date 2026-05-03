@@ -1,4 +1,4 @@
-package cwchoiit.weolbuexam.adapter.in.web;
+package cwchoiit.weolbuexam.adapter.in.web.specification;
 
 import cwchoiit.weolbuexam.adapter.in.web.common.ApiResponse;
 import cwchoiit.weolbuexam.adapter.in.web.common.PagedResponse;

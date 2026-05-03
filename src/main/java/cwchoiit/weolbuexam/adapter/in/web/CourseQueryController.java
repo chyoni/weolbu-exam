@@ -3,6 +3,7 @@ package cwchoiit.weolbuexam.adapter.in.web;
 import cwchoiit.weolbuexam.adapter.in.web.common.ApiResponse;
 import cwchoiit.weolbuexam.adapter.in.web.common.PagedResponse;
 import cwchoiit.weolbuexam.adapter.in.web.response.CourseListItemResponse;
+import cwchoiit.weolbuexam.adapter.in.web.specification.CourseQueryControllerSpec;
 import cwchoiit.weolbuexam.application.provided.CourseLoadUseCase;
 import cwchoiit.weolbuexam.domain.course.Course;
 import cwchoiit.weolbuexam.domain.course.payload.CourseSearchPayload;

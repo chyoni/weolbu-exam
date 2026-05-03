@@ -3,6 +3,7 @@ package cwchoiit.weolbuexam.adapter.in.web;
 import cwchoiit.weolbuexam.adapter.in.web.common.ApiResponse;
 import cwchoiit.weolbuexam.adapter.in.web.request.CourseOpenRequest;
 import cwchoiit.weolbuexam.adapter.in.web.response.CourseOpenResponse;
+import cwchoiit.weolbuexam.adapter.in.web.specification.CourseModifyControllerSpec;
 import cwchoiit.weolbuexam.application.provided.CourseOpenUseCase;
 import cwchoiit.weolbuexam.domain.course.Course;
 import lombok.RequiredArgsConstructor;
